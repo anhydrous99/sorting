@@ -9,15 +9,25 @@
 #include <iterator>
 
 template <class RandomIt>
-void siftDown(RandomIt first, RandomIt last) {
-
-}
-
-template <class RandomIt>
-void heapify(RandomIt first, RandomIt last) {
+void heapify(RandomIt first, typename std::iterator_traits<RandomIt>::difference_type n,
+             typename std::iterator_traits<RandomIt>::difference_type i) {
   typedef typename std::iterator_traits<RandomIt>::difference_type diff_t;
+  using std::swap;
 
-  diff_t largest = 1;
+  diff_t largest = i;
+  diff_t l = 2 * i + 1;
+  diff_t r = 2 * i + 2;
+
+  if (l < n && first[l] > first[largest])
+    largest = l;
+
+  if (r < n && first[r] > first[largest])
+    largest = r;
+
+  if (largest != i) {
+    swap(first[i], first[largest]);
+    heapify(first, n, largest);
+  }
 }
 
 template <class RandomIt>
@@ -25,14 +35,14 @@ void heapsort(RandomIt first, RandomIt last) {
   typedef typename std::iterator_traits<RandomIt>::difference_type diff_t;
   using std::swap;
 
-  heapify(first, last);
-
   diff_t n = last - first;
-  diff_t end = n - 1;
-  while (end > 0) {
-    swap(first[end], first[0]);
-    end--;
-    siftDown(first, first + end);
+
+  for (diff_t i = n / 2 - 1; i >= 0; i--)
+    heapify(first, n, i);
+
+  for (diff_t i = n - 1; i >= 0; i--) {
+    swap(first[0], first[i]);
+    heapify(first, i, 0);
   }
 }
 
