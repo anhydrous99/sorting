@@ -9,6 +9,9 @@
 #include "gnomesort.h"
 #include "heapsort.h"
 #include "insertionsort.h"
+#include "shellsort.h"
+#include "mergesort.h"
+#include "selectionsort.h"
 
 int main(int argc, char *argv[]) {
   using namespace std::chrono;
@@ -60,11 +63,35 @@ int main(int argc, char *argv[]) {
   insertionsort(ins_vec.begin(), ins_vec.end());
   auto t10 = hrc::now();
 
+  // use Shell Sort
+  d_vector shell_vec = random_vector;
+  std::cout << "Starting Shell Sort\n";
+  auto t11 = hrc::now();
+  shellsort(shell_vec.begin(), shell_vec.end());
+  auto t12 = hrc::now();
+
+  // use Merge Sort
+  d_vector merge_vec = random_vector;
+  std::cout << "Starting Merge Sort\n";
+  auto t13 = hrc::now();
+  mergesort(merge_vec.begin(), merge_vec.end());
+  auto t14 = hrc::now();
+
+  // use Selection Sort
+  d_vector selection_vec = random_vector;
+  std::cout << "Starting Selection Sort\n";
+  auto t15 = hrc::now();
+  selectionsort(selection_vec.begin(), selection_vec.end());
+  auto t16 = hrc::now();
+
   // Output results
   std::cout << "std::sort: " << duration_cast<microseconds>(t2 - t1).count() << " microseconds\n";
-  std::cout << "bubble sort: " << duration_cast<milliseconds>(t4 - t3).count() << " milliseconds\n";
-  std::cout << "gnome sort: " << duration_cast<milliseconds>(t6 - t5).count() << " milliseconds\n";
-  std::cout << "heap sort: " << duration_cast<milliseconds>(t8 - t7).count() << " milliseconds\n";
-  std::cout << "insertion sort: " << duration_cast<milliseconds>(t10 - t9).count() << " milliseconds\n";
+  std::cout << "bubble sort: " << duration_cast<microseconds>(t4 - t3).count() << " microseconds\n";
+  std::cout << "gnome sort: " << duration_cast<microseconds>(t6 - t5).count() << " microseconds\n";
+  std::cout << "heap sort: " << duration_cast<microseconds>(t8 - t7).count() << " microseconds\n";
+  std::cout << "insertion sort: " << duration_cast<microseconds>(t10 - t9).count() << " microseconds\n";
+  std::cout << "shell sort: " << duration_cast<microseconds>(t12 - t11).count() << " microseconds\n";
+  std::cout << "merge sort: " << duration_cast<microseconds>(t14 - t13).count() << " microseconds\n";
+  std::cout << "selection sort: " << duration_cast<microseconds>(t16 - t15).count() << " microseconds\n";
   return 0;
 }
