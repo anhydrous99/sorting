@@ -12,6 +12,8 @@
 #include "shellsort.h"
 #include "mergesort.h"
 #include "selectionsort.h"
+#include "oddevensort.h"
+#include "combsort.h"
 
 int main(int argc, char *argv[]) {
   using namespace std::chrono;
@@ -84,6 +86,20 @@ int main(int argc, char *argv[]) {
   selectionsort(selection_vec.begin(), selection_vec.end());
   auto t16 = hrc::now();
 
+  // use Odd-even Sort
+  d_vector oddeven_vec = random_vector;
+  std::cout << "Starting Odd-even Sort\n";
+  auto t17 = hrc::now();
+  oddevensort(oddeven_vec.begin(), oddeven_vec.end());
+  auto t18 = hrc::now();
+
+  // use Comb Sort
+  d_vector comb_vec = random_vector;
+  std::cout << "Starting Comb Sort\n";
+  auto t19 = hrc::now();
+  combsort(comb_vec.begin(), comb_vec.end());
+  auto t20 = hrc::now();
+
   // Output results
   std::cout << "std::sort: " << duration_cast<microseconds>(t2 - t1).count() << " microseconds\n";
   std::cout << "bubble sort: " << duration_cast<microseconds>(t4 - t3).count() << " microseconds\n";
@@ -93,5 +109,7 @@ int main(int argc, char *argv[]) {
   std::cout << "shell sort: " << duration_cast<microseconds>(t12 - t11).count() << " microseconds\n";
   std::cout << "merge sort: " << duration_cast<microseconds>(t14 - t13).count() << " microseconds\n";
   std::cout << "selection sort: " << duration_cast<microseconds>(t16 - t15).count() << " microseconds\n";
+  std::cout << "odd-even sort: " << duration_cast<microseconds>(t18 - t17).count() << " microseconds\n";
+  std::cout << "comb sort: " << duration_cast<microseconds>(t20 - t19).count() << " microseconds\n";
   return 0;
 }
