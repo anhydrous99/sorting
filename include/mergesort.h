@@ -35,13 +35,14 @@ void mergesort(RandomIt first, RandomIt last) {
   using std::min;
 
   diff_t n = last - first;
-  val_t B[n];
+  val_t *B = new val_t[n];
   for (diff_t width = 1; width < n; width = 2 * width) {
     for (diff_t i = 0; i < n; i += 2 * width) {
       ButtomUpMerge(first, i, min(i + width, n), min(i + 2 * width, n), B);
     }
     copy(B, B + n, first);
   }
+  delete[] B;
 }
 
 #endif //SORTING_MERGESORT_H

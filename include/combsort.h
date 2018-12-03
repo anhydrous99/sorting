@@ -17,7 +17,7 @@ void combsort(RandomIt first, RandomIt last) {
 
   diff_t n = last - first;
   diff_t gap = n;
-  float shrink = 1.3;
+  double shrink = 1.3;
   bool sorted = false;
 
   while (!sorted) {
